@@ -254,7 +254,7 @@
 	<h2>Methods</h2>
 	<div class="info">
 		<h3>设置城市默认</h3>
-		<p>setCityVal(str)</p>
+		<p>setCityVal(val)</p>
 		<p>传入的参数是用字符串的形式：'北京市, 天津市, 上海市, 广州市, 长沙市, 唐山市'</p>
 		<p class="careful">注意: 如果设置的城市超过multiMaximum设置的限制的个数，多出的是不会生效</p>
 	</div>
@@ -266,8 +266,8 @@
 	</div>
 	<div class="info">
 		<h3>更新城市数据</h3>
-		<p>update([{key->val})</p>
-		<p>栗子：singleSelect2.update([{
+		<p>update(data)</p>
+		<p>栗子：singleSelect.update([{
 			"id": "110100",
 			"name": "北京市",
 			"parentId": "110000",
@@ -287,8 +287,8 @@
 		}]);</p>
 	</div>
 	<div class="info">
-		<h3>禁止点击</h3>
-		<p>status(str)</p>
+		<h3>城市状态</h3>
+		<p>status(status)</p>
 		<p>参数是readonly或disabled</p>
 	</div>
 	<div class="info">
