@@ -29,7 +29,7 @@ citySelect是面向于PC端的一款基于JQuery的、整体功能都比较完�
 |multiType|[Number]|0(多行)|值允许1或者0；只用于多选，选中的值显示是一行还是多行|
 |placeholder|[String]|'请选择城市'|默认的提示语|
 |searchPlaceholder|[String]|'输入关键词搜索'|搜索文本框默认的提示语|
-|hotCity|[Array]|[](取前面18条数据)|热门城市显示数据，传就生成热门城市，没有就插件生成|
+|hotCity|[Array]| [] (取前面18条数据) |热门城市显示数据，传就生成热门城市，没有就插件生成|
 |onInit|[function]|function () {}|插件初始化后的回调|
 |onForbid|[function]|function () {}|插件禁止后再点击的回调|
 |onTabsAfter|[function]|function (target) {}|点击tabs切换显示城市后的回调|
@@ -126,3 +126,7 @@ MulticitySelect1.setCityVal('北京市, 天津市, 上海市, 广州市, 长沙�
 |clear()|清空所有选中的值<br><br>栗子<br>singleSelect.clear()|
 |bindEvent()|绑定事件<br><br>栗子<br>singleSelect.bindEvent()|
 |unBindEvent()|销毁事件<br><br>栗子<br>singleSelect.unBindEvent()|
+
+## DEMO
+
+[https://lquan529.github.io/citySelect/](https://lquan529.github.io/citySelect/)
