@@ -1,6 +1,8 @@
 /**
  * citySelect
- * v-1.0.0
+ * v-1.0.1
+ * author：lquan
+ * https://github.com/lquan529/citySelect
  * dataJson			    [Array]				json数据，是html显示的列表数据
  * convert              [Boolean]           转换json数据，以适应这个插件的运行，如果传入的格式是指定的格式则不需要，默认(true)
  * shorthand            [Boolean]           显示的是简称还是全称，默认(false)，显示全称
@@ -545,10 +547,12 @@
         var self = this;
 
         //有选中的，就添加选中状态
-        if (self.values.length > 0) {
+        if (self.values[0].id instanceof Array) {
             $.each(self.values[0].id, function (key, value) {
                 self.$selector.find('.caller[data-id="'+ value +'"]').addClass('active');
             });
+        } else {
+            self.$selector.find('.caller[data-id="'+ self.values[0].id +'"]').addClass('active');
         }
     }
 

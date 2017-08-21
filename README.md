@@ -2,7 +2,7 @@
 citySelect是面向于PC端的一款基于JQuery的、整体功能都比较完善的拼音分类和集成搜索功能的城市选择插件。
 
 ## Version
->* 1.0.0
+>* 1.0.1
 
 ## Support
 >* Internet Explorer 8+
@@ -130,3 +130,8 @@ MulticitySelect1.setCityVal('北京市, 天津市, 上海市, 广州市, 长沙�
 ## DEMO
 
 [https://lquan529.github.io/citySelect/](https://lquan529.github.io/citySelect/)
+
+## LOG
+
+2017.08.21-更新版本为1.0.1  
+修复搜索一次之后不能再搜索的bug
