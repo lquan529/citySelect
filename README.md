@@ -47,7 +47,7 @@ Javascript
 ``` js
 <script src="https://cdn.bootcss.com/jquery/1.8.1/jquery.js"></script>
 <script type="text/javascript" src="js/citydata.js"></script>
-<script type="text/javascript" src="js/citySelect-1.0.0.js"></script>
+<script type="text/javascript" src="js/citySelect-1.0.2.js"></script>
 ```
 
 ## Basic usage
