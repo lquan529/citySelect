@@ -1,6 +1,6 @@
 /**
  * citySelect
- * v-1.0.1
+ * v-1.0.2
  * author：lquan
  * https://github.com/lquan529/citySelect
  * dataJson			    [Array]				json数据，是html显示的列表数据
@@ -547,12 +547,14 @@
         var self = this;
 
         //有选中的，就添加选中状态
-        if (self.values[0].id instanceof Array) {
-            $.each(self.values[0].id, function (key, value) {
-                self.$selector.find('.caller[data-id="'+ value +'"]').addClass('active');
-            });
-        } else {
-            self.$selector.find('.caller[data-id="'+ self.values[0].id +'"]').addClass('active');
+        if (self.values.length > 0) {
+            if (self.values[0].id instanceof Array) {
+                $.each(self.values[0].id, function (key, value) {
+                    self.$selector.find('.caller[data-id="'+ value +'"]').addClass('active');
+                });
+            } else {
+                self.$selector.find('.caller[data-id="'+ self.values[0].id +'"]').addClass('active');
+            }
         }
     }
 
