@@ -1,10 +1,11 @@
 /**
  * citySelect
- * v-1.0.2
+ * v-1.0.3
  * author：lquan
  * https://github.com/lquan529/citySelect
  * dataJson			    [Array]				json数据，是html显示的列表数据
  * convert              [Boolean]           转换json数据，以适应这个插件的运行，如果传入的格式是指定的格式则不需要，默认(true)
+ * whole                [Boolean]           显示市县级数据，否则就只显示市级数据，默认(false)，显示市级数据
  * shorthand            [Boolean]           显示的是简称还是全称，默认(false)，显示全称
  * search               [Boolean]           开启搜索功能，默认(true)，开启
  * multiSelect          [Boolean]           多选设置，默认不开启
@@ -32,6 +33,7 @@
         this.multiSelectResult = [];
         this.multiSelectResultId = [];
         this.provinceId = [];
+        this.whole = [];
         this.values = [];
         this.selectIndex = 0;
         this.isfocus = true;
@@ -45,6 +47,7 @@
     Cityselect.defaults = {
         dataJson: null,
         convert: true,
+        whole: false,
         shorthand: false,
         search: true,
         multiSelect: false,
@@ -69,7 +72,7 @@
             result = [],
             province = [];
 
-        //筛选出省份的ID
+        // 筛选出省份的ID
         $.each(data, function (key, value) {
             if (value.parentId === '100000') {
                 resultId.push(value.id);
@@ -77,7 +80,7 @@
             }
         });
 
-        //根据省份ID，查找出所有的城市
+        // 根据省份ID，查找出所有的城市
         for (var i = 0; i < resultId.length; i++) {
             $.each(data, function (key, value) {
                 if (resultId[i] === value.parentId) {
@@ -86,14 +89,33 @@
             });
         }
 
-        //存储省份
+        // 存储省份
         this.province = province;
+
+        // 筛选出除了省份外的数据
+        functionality.whole.call(this);
 
         return result;
     }
 
+    functionality.whole = function () {
+        var self = this,
+            result = [];
+
+        $.each(self.options.dataJson, function (key, value) {
+            if (value.id !== '100000' && value.parentId !== '100000') {
+                result.push(value);
+            }
+        });
+
+        self.whole = result;
+    }
+
     functionality.filter = function (parameter) {
         var configure = parameter;
+
+        // 包含市县级数据，否则市级数据
+        configure.contain = configure.options.whole ? configure.whole : configure.newCityData;
 
         //分类的城市
         parameter.filterCity = {
@@ -126,7 +148,7 @@
             Z: []
         };
 
-        $.each(configure.newCityData, function (key, value) {
+        $.each(configure.contain, function (key, value) {
             //匹配城市数据
             switch (value.letter) {
                 case ('A'):
@@ -281,11 +303,11 @@
             '</div>',
             '<div class="city-cont">',
                 '{cont}',
-                '<p>',
-                '<a href="javascript:;" class="empty"><i></i>清空</a><span></span>',
-                '<em>*可以直接搜索查找城市（支持名称、拼音模糊搜索）</em>',
-                '</p>',
             '</div>',
+            '<p class="city-txt">',
+            '<a href="javascript:;" class="empty"><i></i>清空</a><span class="city-count"><i>0</i>/{maxnum}</span>',
+            '<em>*可以直接搜索查找城市（支持名称、拼音模糊搜索）</em>',
+            '</p>',
         '</div>',
         '<div class="city-info{type}">',
             '{name}',
@@ -294,7 +316,7 @@
             '</div>',
         '</div>',
         '<ul class="city-list hide"></ul>',
-        '<div class="city-tips hide">最多只能选择<span>{maxnum}</span>项</div>'
+        '<div class="city-tips hide">最多只能选择<span>{tipnum}</span>项</div>'
     ];
 
     functionality.split = function (str) {
@@ -491,7 +513,7 @@
         }
 
         //添加选中数
-        $selector.find('p').find('span').text(self.selectIndex > 0 ? self.selectIndex : '');
+        $selector.find('.city-count').find('i').text(self.selectIndex);
 
         //选择之后的回调
         configure.onCallerAfter.call(self, $target, self.values[0]);
@@ -516,7 +538,7 @@
 
             self.isfocus = false;
     
-            $.each(self.newCityData, function(key, value) {
+            $.each(self.contain, function(key, value) {
                 //拼音或者名称搜索
                 if(value.pinyin.toLocaleLowerCase().search(inputVal.toLocaleLowerCase()) > -1 || value.name.search(inputVal) > -1 || value.id.search(inputVal) > -1 ){
                     result.push(value);
@@ -686,7 +708,7 @@
         //如果是多选才执行以下事情
         if (self.options.multiSelect) {
             self.selectIndex -= 1;
-            self.$selector.find('p').find('span').text(self.selectIndex > 0 ? self.selectIndex : '');
+            self.$selector.find('.city-count').find('i').text(self.selectIndex);
 
             //数组是空
             self.values.length < 1 ? self.$selector.find('.city-input').addClass('not-val') : '';
@@ -792,6 +814,7 @@
 
         //添加多选提示最大选择数
         template = template.replace('{maxnum}', configure.multiMaximum);
+        template = template.replace('{tipnum}', configure.multiMaximum);
 
         //添加多选选中的值显示的方式
         template = template.replace('{type}', configure.multiType === 1 ? ' multi-type' : '');
@@ -807,11 +830,14 @@
         //把城市弹窗dom添加到容器中
         self.$selector.html(template.replace('{cont}', self.groupCity()));
 
+        //单选就去掉
+        !configure.multiSelect ?  self.$selector.find('.city-count').html(''): '';
+
         //没有开启搜索，就remove掉搜索dom
 
         if (!configure.search) {
             self.$selector.find('.city-input').addClass('not-search').html('<em>'+ configure.placeholder +'</em>');
-            self.$selector.find('.city-cont').find('p').find('em').remove();
+            self.$selector.find('.city-txt').find('em').remove();
         } else {
             self.$selector.find('.city-input').removeClass('not-search');
         }
@@ -903,7 +929,7 @@
                 //如果是多选才执行以下事情
                 if (self.options.multiSelect) {
                     self.selectIndex = i + 1;
-                    self.$selector.find('p').find('span').text(i + 1);
+                    self.$selector.find('.city-count').find('i').text(i + 1);
                 }
 
             };
@@ -957,7 +983,7 @@
         this.isfocus ? this.$selector.find('.input-search').val('').focus() : '';
 
         this.$selector.find('.caller').removeClass('active');
-        this.$selector.find('p').find('span').text('');
+        this.$selector.find('.city-count').find('i').text('0');
         this.$selector.find('.city-info').find('span').remove();
 
         if (this.values.length < 1) {

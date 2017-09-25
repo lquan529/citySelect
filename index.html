@@ -28,6 +28,12 @@
 				<td>转换数据，引入的数据源是citydata.js就需要转换；引入的是newcitydata.js就不需要</td>
 			</tr>
 			<tr>
+				<td>whole</td>
+				<td>[Boolean]</td>
+				<td>false(市级)</td>
+				<td>转换数据，引入的数据源是citydata.js数据源才可以。显示市县级数据还是只显示市级数据</td>
+			</tr>
+			<tr>
 				<td>shorthand</td>
 				<td>[Boolean]</td>
 				<td>false(全称)</td>
@@ -311,7 +317,7 @@
 
 	<script src="https://cdn.bootcss.com/jquery/1.8.1/jquery.js"></script>
 	<script type="text/javascript" src="js/citydata.min.js"></script>
-	<script type="text/javascript" src="js/citySelect-1.0.2.min.js"></script>
+	<script type="text/javascript" src="js/citySelect-1.0.3.js"></script>
 	<script type="text/javascript">
 	$(function() {
 
@@ -319,6 +325,7 @@
 		var singleSelect1 = $('#single-select-1').citySelect({
 			dataJson: cityData,
 			multiSelect: false,
+			whole: true,
 			shorthand: true,
 			search: true,
 			onInit: function () {

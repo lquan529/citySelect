@@ -2,7 +2,7 @@
 citySelect是面向于PC端的一款基于JQuery的、整体功能都比较完善的拼音分类和集成搜索功能的城市选择插件。
 
 ## Version
->* 1.0.2
+>* 1.0.3
 
 ## Support
 >* Internet Explorer 8+
@@ -22,6 +22,7 @@ citySelect是面向于PC端的一款基于JQuery的、整体功能都比较完�
 | ----- | ----- | ---- | ---- |
 |dataJson|[Array]|默认空|城市数据源|
 |convert|[Boolean]|true(转换)|转换数据，引入的数据源是citydata.js就需要转换；引入的是newcitydata.js就不需要|
+|whole|[Boolean]|false(市级)|如果开启这个，需要引入的是citydata.js数据源才可以。显示市县级数据还是只显示市级数据|
 |shorthand|[Boolean]|false(全称)|名称的全称、简称|
 |multiSelect|[Boolean]|false(单选)|多选、单选|
 |search|[Boolean]|true(搜索)|开启搜索|
@@ -47,7 +48,7 @@ Javascript
 ``` js
 <script src="https://cdn.bootcss.com/jquery/1.8.1/jquery.js"></script>
 <script type="text/javascript" src="js/citydata.js"></script>
-<script type="text/javascript" src="js/citySelect-1.0.2.js"></script>
+<script type="text/javascript" src="js/citySelect-1.0.3.js"></script>
 ```
 
 ## Basic usage
@@ -133,8 +134,13 @@ MulticitySelect1.setCityVal('北京市, 天津市, 上海市, 广州市, 长沙�
 
 ## LOG
 
+2017.09.25-更新版本为1.0.3  
+增加一个参数whole，显示市级还是市县级数据；  
+但是要求的是开启这个，必须是引入数据源是citydata.js文件
+
 2017.08.31-更新版本为1.0.2  
-修复点击清空操作后，不能再搜索的bug
+修复点击清空操作后，不能再搜索的bug，  
+多选计数的样式优化
 
 2017.08.21-更新版本为1.0.1  
 修复搜索一次之后不能再搜索的bug
