@@ -6,113 +6,6 @@
 	<link rel="stylesheet" type="text/css" href="css/city-select.css">
 </head>
 <body>
-	<h2>Options</h2>
-	<div class="info">
-		<table border="0" width="100%">
-			<tr>
-				<th>名称</th>
-				<th>类型</th>
-				<th>默认</th>
-				<th>描述</th>
-			</tr>
-			<tr>
-				<td>dataJson</td>
-				<td>[Array]</td>
-				<td>默认空</td>
-				<td>城市数据源</td>
-			</tr>
-			<tr>
-				<td>convert</td>
-				<td>[Boolean]</td>
-				<td>true(转换)</td>
-				<td>转换数据，引入的数据源是citydata.js就需要转换；引入的是newcitydata.js就不需要</td>
-			</tr>
-			<tr>
-				<td>whole</td>
-				<td>[Boolean]</td>
-				<td>false(市级)</td>
-				<td>转换数据，引入的数据源是citydata.js数据源才可以。显示市县级数据还是只显示市级数据</td>
-			</tr>
-			<tr>
-				<td>shorthand</td>
-				<td>[Boolean]</td>
-				<td>false(全称)</td>
-				<td>名称的全称、简称</td>
-			</tr>
-			<tr>
-				<td>multiSelect</td>
-				<td>[Boolean]</td>
-				<td>false(单选)</td>
-				<td>多选、单选</td>
-			</tr>
-			<tr>
-				<td>search</td>
-				<td>[Boolean]</td>
-				<td>true(搜索)</td>
-				<td>开启搜索</td>
-			</tr>
-			<tr>
-				<td>multiMaximum</td>
-				<td>[Number]</td>
-				<td>5(最多可选5个城市)</td>
-				<td>最多可选的城市个数(多选)</td>
-			</tr>
-			<tr>
-				<td>multiType</td>
-				<td>[Number]</td>
-				<td>0(多行)</td>
-				<td>值允许1或者0；只用于多选，选中的值显示是一行还是多行</td>
-			</tr>
-			<tr>
-				<td>placeholder</td>
-				<td>[String]</td>
-				<td>'请选择城市'</td>
-				<td>默认的提示语</td>
-			</tr>
-			<tr>
-				<td>searchPlaceholder</td>
-				<td>[String]</td>
-				<td>'输入关键词搜索'</td>
-				<td>搜索文本框默认的提示语</td>
-			</tr>
-			<tr>
-				<td>hotCity</td>
-				<td>[Array]</td>
-				<td>[](取前面18条数据)</td>
-				<td>热门城市显示数据，传就生成热门城市，没有就插件生成</td>
-			</tr>
-			<tr>
-				<td>onInit</td>
-				<td>[function]</td>
-				<td>function () {}</td>
-				<td>插件初始化后的回调</td>
-			</tr>
-			<tr>
-				<td>onForbid</td>
-				<td>[function]</td>
-				<td>function () {}</td>
-				<td>插件禁止后再点击的回调</td>
-			</tr>
-			<tr>
-				<td>onTabsAfter</td>
-				<td>[function]</td>
-				<td>function (target) {}</td>
-				<td>点击tabs切换显示城市后的回调</td>
-			</tr>
-			<tr>
-				<td>onTabsForbid</td>
-				<td>[function]</td>
-				<td>function (target) {}</td>
-				<td>tabs禁止后再点击的回调</td>
-			</tr>
-			<tr>
-				<td>onCallerAfter</td>
-				<td>[function]</td>
-				<td>function (target, values) {}</td>
-				<td>选择城市后的回调</td>
-			</tr>
-		</table>
-	</div>
 	
 	<h2>城市单选</h2>
 	<div class="city-select" id="single-select-1">
@@ -271,6 +164,114 @@
 	<div class="info">
 		<h3>开启搜索功能</h3>
 		<p>search: true</p>
+	</div>
+
+	<h2>Options</h2>
+	<div class="info">
+		<table border="0" width="100%">
+			<tr>
+				<th>名称</th>
+				<th>类型</th>
+				<th>默认</th>
+				<th>描述</th>
+			</tr>
+			<tr>
+				<td>dataJson</td>
+				<td>[Array]</td>
+				<td>默认空</td>
+				<td>城市数据源</td>
+			</tr>
+			<tr>
+				<td>convert</td>
+				<td>[Boolean]</td>
+				<td>true(转换)</td>
+				<td>转换数据，引入的数据源是citydata.js就需要转换；引入的是newcitydata.js就不需要</td>
+			</tr>
+			<tr>
+				<td>whole</td>
+				<td>[Boolean]</td>
+				<td>false(市级)</td>
+				<td>转换数据，引入的数据源是citydata.js数据源才可以。显示市县级数据还是只显示市级数据</td>
+			</tr>
+			<tr>
+				<td>shorthand</td>
+				<td>[Boolean]</td>
+				<td>false(全称)</td>
+				<td>名称的全称、简称</td>
+			</tr>
+			<tr>
+				<td>multiSelect</td>
+				<td>[Boolean]</td>
+				<td>false(单选)</td>
+				<td>多选、单选</td>
+			</tr>
+			<tr>
+				<td>search</td>
+				<td>[Boolean]</td>
+				<td>true(搜索)</td>
+				<td>开启搜索</td>
+			</tr>
+			<tr>
+				<td>multiMaximum</td>
+				<td>[Number]</td>
+				<td>5(最多可选5个城市)</td>
+				<td>最多可选的城市个数(多选)</td>
+			</tr>
+			<tr>
+				<td>multiType</td>
+				<td>[Number]</td>
+				<td>0(多行)</td>
+				<td>值允许1或者0；只用于多选，选中的值显示是一行还是多行</td>
+			</tr>
+			<tr>
+				<td>placeholder</td>
+				<td>[String]</td>
+				<td>'请选择城市'</td>
+				<td>默认的提示语</td>
+			</tr>
+			<tr>
+				<td>searchPlaceholder</td>
+				<td>[String]</td>
+				<td>'输入关键词搜索'</td>
+				<td>搜索文本框默认的提示语</td>
+			</tr>
+			<tr>
+				<td>hotCity</td>
+				<td>[Array]</td>
+				<td>[](取前面18条数据)</td>
+				<td>热门城市显示数据，传就生成热门城市，没有就插件生成</td>
+			</tr>
+			<tr>
+				<td>onInit</td>
+				<td>[function]</td>
+				<td>function () {}</td>
+				<td>插件初始化后的回调</td>
+			</tr>
+			<tr>
+				<td>onForbid</td>
+				<td>[function]</td>
+				<td>function () {}</td>
+				<td>插件禁止后再点击的回调</td>
+			</tr>
+			<tr>
+				<td>onTabsAfter</td>
+				<td>[function]</td>
+				<td>function (target) {}</td>
+				<td>点击tabs切换显示城市后的回调</td>
+			</tr>
+			<tr>
+				<td>onTabsForbid</td>
+				<td>[function]</td>
+				<td>function (target) {}</td>
+				<td>tabs禁止后再点击的回调</td>
+			</tr>
+			<tr>
+				<td>onCallerAfter</td>
+				<td>[function]</td>
+				<td>function (target, values) {}</td>
+				<td>选择城市后的回调</td>
+			</tr>
+		</table>
 	</div>
 
 	<h2>Methods</h2>

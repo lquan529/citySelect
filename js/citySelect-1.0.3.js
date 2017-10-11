@@ -540,7 +540,7 @@
     
             $.each(self.contain, function(key, value) {
                 //拼音或者名称搜索
-                if(value.pinyin.toLocaleLowerCase().search(inputVal.toLocaleLowerCase()) > -1 || value.name.search(inputVal) > -1 || value.id.search(inputVal) > -1 ){
+                if(value.pinyin.toLocaleLowerCase().indexOf(inputVal.toLocaleLowerCase()) > -1 || value.name.indexOf(inputVal) > -1 || value.id.indexOf(inputVal) > -1 ){
                     result.push(value);
                 }
             });
