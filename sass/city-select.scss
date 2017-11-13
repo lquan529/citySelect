@@ -1,0 +1,491 @@
+@import "base";
+
+body {
+	padding: 5% 10%;
+}
+
+
+h2 {
+	border-left: 2px solid #02aec7;
+	padding-left: 10px;
+	font-size: 26px;
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
+.info {
+	padding-top: 30px;
+	h3,
+	p {
+		line-height: 2;
+	}
+	h3 {
+		color: #333;
+		font-size: 16px;
+	}
+	p {
+		color: #666;
+		font-size: 14px;
+		&.careful {
+			color: #dc7171;
+		}
+	}
+	th,
+	td {
+		border: 1px solid #ccc;
+		padding: 10px;
+	}
+	th {
+		font-weight: bold;
+	}
+	td {
+		color: #666;
+	}
+}
+
+
+/**
+ * select城市选择
+ */
+.city-select {
+	font-size: 0;
+	position: relative;
+	display: inline-block;
+	%clearfix {
+		*zoom: 1;
+		&:after {
+			content: " ";
+			display: table;
+			height: 0;
+			clear: both;
+		}
+	}
+	&.down .city-info {
+		border-bottom: none;
+		&:after {
+			border-top: none;
+			border-bottom: 6px solid #ccc;
+		}
+	}
+	&.multi {
+		.city-pavilion{
+			& + .city-info .not-search {
+				display: none;
+			}
+			& + .city-info .not-search[class~="not-val"] {
+				display: block;
+			}
+			&.hide + .city-info .city-input {
+				display: none;
+			}
+			&.hide + .city-info .city-input[class~="not-val"] {
+				display: block;
+			}
+			& + .multi-type .city-input {
+				display: block;
+			}
+			&.hide + .multi-type .city-input[class~="not-val"] {
+				display: block;
+			}
+			&.hide + .multi-type .search-show {
+				display: block;
+			}
+		}
+	}
+	&.disabled {
+		.city-info {
+			background-color: #eef1f6;
+			cursor: not-allowed;
+			span {
+				background-color: #eef1f6;
+				&:hover i {
+					display: none;
+				}
+				& + .city-input {
+					display: none;
+				}
+			}
+			input {
+				cursor: not-allowed;
+			}
+		}
+	}
+	&.readonly {
+		.city-info {
+			cursor: default;
+			span {
+				&:hover i {
+					display: none;
+				}
+				& + .city-input {
+					display: none;
+				}
+			}
+			input {
+				cursor: default;
+			}
+		}
+	}
+	.city-info {
+		border: 1px solid #ccc;
+		background-color: #fcfcfc;
+		cursor: pointer;
+		width: 280px;
+		overflow: hidden;
+		padding: 8px;
+		padding-top: 0;
+		position: relative;
+		z-index: 2;
+		&:after {
+			content: '';
+			border-right: 6px solid transparent;
+			border-left: 6px solid transparent;
+			border-top: 6px solid #ccc;
+			border-radius: 2px;
+			display: block;
+			width: 0;
+			height: 0;
+			position: absolute;
+			top: 17px;
+			right: 5px;
+			@include transition(border .2s);
+		}
+		&.multi-type {
+			span {
+				background: none;
+				padding: 5px 0;
+				margin-right: 0;
+			}
+			.span-over {
+				width: 99%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.city-input {
+				display: block;
+				width: 100%;
+				&.hide {
+					display: none;
+				}
+			}
+		}
+		span {
+			background-color: #f5f5f5;
+			border-radius: 2px;
+			color: #666;
+			cursor: default;
+			font-size: 14px;
+			display: inline-block;
+			vertical-align: middle;
+			padding: 5px;
+			margin-right: 5px;
+			position: relative;
+			& + .city-input {
+				width: auto;
+			}
+			i {
+				color: #fff;
+				cursor: pointer;
+				background: #ffbfbf;
+				border-radius: 100%;
+				display: block;
+				width: 14px;
+				height: 14px;
+				line-height: 14px;
+				text-align: center;
+				font-size: 0;
+				position: absolute;
+				top: -5px;
+				right: -5px;
+				z-index: 1;
+				visibility: hidden;
+				opacity: 0;
+				@include transition(all 1s);
+				&:after {
+					content: '\D7';
+					font-size: 12px;
+				}
+			}
+			&:hover i {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+		.city-input,
+		span {
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: 8px;
+		}
+	}
+	.city-input {
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+		&.hide {
+			display: none;
+		}
+		em {
+			color: #999;
+			display: block;
+			font-style: normal;
+			font-size: 12px;
+			height: 24px;
+			line-height: 24px;
+		}
+	}
+	input[type="text"] {
+		background: transparent;
+		border: none;
+		box-sizing: border-box;
+		color: #333;
+		font-size: 12px;
+		width: 100%;
+		height: 24px;
+		line-height: 24px\9;
+		padding: 0 5px;
+		outline: none;
+	}
+	.city-pavilion,
+	.city-list {
+		border: 1px solid #ccc;
+		background: #fff;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 1;
+		margin-top: -1px;
+		transition-duration: 400ms;
+		transform: translateY(0);
+		opacity: 1;
+		visibility: visible;
+		&.hide {
+			transform: translateY(-2%);
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+	.city-pavilion {
+		box-shadow: 0 2px 5px #ddd;
+		width: 468px;
+	}
+	.city-tabs {
+		border-bottom: 1px solid #ccc;
+		background: #fbfbfb;
+		font-size: 0;
+		a {
+			border-bottom: 1px solid transparent;
+			display: inline-block;
+			font-size: 14px;
+			color: #666;
+			padding: 0 6px;
+			height: 36px;
+			line-height: 36px;
+			text-align: center;
+			position: relative;
+			bottom: -1px;
+			@include transition(all 1s);
+			&:hover {
+				border-bottom-color: #000;
+			}
+			&.active {
+				border-bottom-color: #02aec7;
+				color: #02aec7;
+				cursor: default;
+			}
+			&.forbid {
+				color: #bbb;
+				cursor: not-allowed;
+				&:hover {
+					border-bottom-color: transparent;
+				}
+			}
+		}
+	}
+	.city-cont {
+		padding-top: 20px;
+		padding-left: 20px;
+		font-size: 0;
+		position: relative;
+		max-height: 200px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		dl {
+			@extend %clearfix;
+			&:first-child dd {
+				margin-left: 0;
+			}
+		}
+		dt,
+		dd {
+			display: inline-block;
+			vertical-align: top;
+			float: left;
+		}
+		dt {
+			color: #02aec7;
+			font-size: 16px;
+			width: 28px;
+		}
+		dd {
+			font-size: 14px;
+			width: 421px;
+			margin-top: -10px;
+			margin-left: -10px;
+			padding-bottom: 20px;
+			a {
+				color: #666;
+				display: inline-block;
+				padding: 5px 7px;
+				margin-top: 5px;
+				margin-left: 5px;
+				@include transition(all .5s);
+				&:hover {
+					background: #f5f5f5;
+					border-radius: 2px;
+				}
+				&.active {
+					background: #02aec7;
+					border-radius: 2px;
+					color: #fff;
+					box-shadow: 0 0 5px #ddd;
+				}
+			}
+		}
+		dl {
+			transition-duration: 400ms;
+			opacity: 1;
+			transform: translateX(0);
+			&.hide {
+				display: none;
+				opacity: 0;
+				transform: translateX(5%);
+			}
+		}
+	}
+	.city-list {
+		font-size: 0;
+		width: 298px;
+		max-height: 170px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		box-sizing: border-box;
+		li {
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			cursor: pointer;
+			padding: 10px 5px;
+			position: relative;
+			margin-bottom: -1px;
+			&:first-child {
+				border-top: none;
+			}
+			&:hover {
+				background-color: #f9f9f9;
+			}
+			&.active {
+				border-left: 2px solid #02aec7;
+				background-color: #f0fbfd;
+			}
+			&.hover {
+				border-bottom-color: #02aec7;
+				background-color: #f9f9f9;
+				z-index: 2;
+				span {
+					text-indent: 10px;
+				}
+			}
+			&.not-have {
+				background-color: #fff;
+				color: #999;
+				font-size: 14px;
+				cursor: not-allowed;
+				line-height: 1.5;
+				padding: 5px;
+				strong {
+					color: #02aec7;
+					font-style: normal;
+					padding: 0 5px;
+				}
+			}
+		}
+		span {
+			display: inline-block;
+			font-size: 14px;
+			width: 50%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			@include transition(all .5s);
+			&.spell {
+				text-align: right;
+				font-size: 12px;
+				color: #02aec7;
+			}
+		}
+	}
+	.city-txt {
+		color: #999;
+		font-size: 12px;
+		margin-bottom: 10px;
+		vertical-align: text-bottom;
+		@extend %clearfix;
+		padding-top: 10px;
+		padding-left: 20px;
+		a,
+		span {
+			display: block;
+			float: right;
+			margin-right: 10px;
+			vertical-align: top;
+		}
+		em {
+			font-style: normal;
+		}
+		a {
+			color: #dc8383;
+			margin-top: -3px;
+			&:hover {
+				color: #02aec7;
+			}
+			i {
+				background: url(http://images.vrm.cn/2017/07/26/del.png) no-repeat;
+				width: 16px;
+				height: 16px;
+				display: inline-block;
+				vertical-align: middle;
+			}
+		}
+		span {
+			letter-spacing: 2px;
+		}
+		i {
+			color: #02aec7;
+		}
+	}
+	.city-tips {
+		background: rgba(0, 0, 0, 0.7);
+		border-radius: 2px;
+		color: #fff;
+		font-size: 14px;
+		text-align: center;
+		padding: 0 10px;
+		position: absolute;
+		top: 5px;
+		left: 50%;
+		line-height: 36px;
+		margin-left: -50px;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B200000,endColorstr=#B200000);
+		transition-duration: 400ms;
+		transform: translateY(0);
+		opacity: 1;
+		visibility: visible;
+		z-index: 5;
+		&.hide {
+			transform: translateY(5%);
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+}
