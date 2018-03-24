@@ -127,12 +127,16 @@ MulticitySelect1.setCityVal('北京市, 天津市, 上海市, 广州市, 长沙�
 |clear()|清空所有选中的值<br><br>栗子<br>singleSelect.clear()|
 |bindEvent()|绑定事件<br><br>栗子<br>singleSelect.bindEvent()|
 |unBindEvent()|销毁事件<br><br>栗子<br>singleSelect.unBindEvent()|
+|showDrop()|显示事件<br><br>栗子<br>singleSelect.showDrop()|
+|hideDrop()|隐藏事件<br><br>栗子<br>singleSelect.hideDrop()|
 
 ## DEMO
 
 [https://lquan529.github.io/citySelect/](https://lquan529.github.io/citySelect/)
 
 ## LOG
+2018.03.24-更新版本为1.0.4  
+增加返回显示和隐藏接口
 
 2017.09.25-更新版本为1.0.3  
 增加一个参数whole，显示市级还是市县级数据；  

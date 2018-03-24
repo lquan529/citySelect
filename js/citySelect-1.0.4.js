@@ -1,6 +1,6 @@
 /**
  * citySelect
- * v-1.0.3
+ * v-1.0.4
  * author：lquan
  * https://github.com/lquan529/citySelect
  * dataJson			    [Array]				json数据，是html显示的列表数据
@@ -382,33 +382,6 @@
         'Z'
     ];
 
-    functionality.showDrop = function (event) {
-        var self = this,
-            configure = self.options,
-            $target = $(event.target);
-
-        //禁止点击后的回调
-        if ($(event.currentTarget).hasClass('forbid')) {
-            configure.onForbid.call(self);
-            return false;
-        }
-
-        //点击删除
-        if ($target.hasClass('del')) {
-            functionality.deletes.call(self, $target);
-            return false;
-        }
-
-        self.isfocus = true;
-    
-        self.$selector.addClass('down').find('.city-pavilion').removeClass('hide').siblings('.city-list').addClass('hide');
-
-        $(event.currentTarget).find('.input-search').focus();
-
-        //有值就加选中状态
-        functionality.defSelected.call(self);
-    }
-
     functionality.tabs = function (event) {
         var $target = $(event.target),
             configure = this.options,
@@ -721,9 +694,9 @@
 
     }
 
-    functionality.deletes = function (target) {
+    functionality.deletes = function (event) {
         var self = this,
-            $target = target,
+            $target = $(event.currentTarget),
             $parent = $target.parent(),
             name = $parent[0].innerText,
             id = $parent.attr('data-id'),
@@ -752,7 +725,6 @@
         } else {
             //调整文本框位置
             functionality.singleResize.call(self);
-
         }
     }
 
@@ -883,13 +855,41 @@
         functionality.forbid.call(self);
     }
 
+    Cityselect.prototype.showDrop = function (event) {
+        var self = this,
+            configure = self.options,
+            $target = self.$selector.find('.city-info');
+
+        //禁止点击后的回调
+        if ($target.hasClass('forbid')) {
+            configure.onForbid.call(self);
+            return false;
+        }
+
+        self.isfocus = true;
+    
+        self.$selector.addClass('down').find('.city-pavilion').removeClass('hide').siblings('.city-list').addClass('hide');
+
+        $target.find('.input-search').focus();
+
+        //有值就加选中状态
+        functionality.defSelected.call(self);
+    }
+
+    Cityselect.prototype.hideDrop = function () {
+        var $selector = this.$selector;
+
+        $selector.removeClass('down').find('.city-pavilion, .city-list').addClass('hide');
+        $selector.find('.city-input').removeClass('search-show').find('.input-search').val('').blur();
+    }
+
     Cityselect.prototype.bindEvent = function (event) {
         var self = this,
             configure = self.options,
             $selector = self.$selector;
 
         //显示城市-弹窗
-        $selector.on('click.cityselect', '.city-info', $.proxy(functionality.showDrop, self));
+        $selector.on('click.cityselect', '.city-info', $.proxy(self.showDrop, self));
 
         //tabs-切换索引的城市显示
         $selector.on('click.cityselect', '.tab-a', $.proxy(functionality.tabs, self));
@@ -899,6 +899,9 @@
 
         //点击清空
         $selector.on('click.cityselect', '.empty', $.proxy(self.clear, self));
+
+        //点击删除
+        $selector.on('click.cityselect', '.del', $.proxy(functionality.deletes, self));
 
         //搜索
         $selector.on('keyup.cityselect', '.input-search', $.proxy(functionality.search, self));
@@ -1047,7 +1050,7 @@
 
         if ($citySelect.find(event.target).length < 1) {
             $citySelect.removeClass('down').find('.city-pavilion, .city-list').addClass('hide');
-            $citySelect.find('.city-input').removeClass('search-show').find('.input-search').val('');
+            $citySelect.find('.city-input').removeClass('search-show').find('.input-search').val('').blur();
         }
     });
 
