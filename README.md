@@ -2,7 +2,7 @@
 citySelect是面向于PC端的一款基于JQuery的、整体功能都比较完善的拼音分类和集成搜索功能的城市选择插件。
 
 ## Version
->* 1.0.3
+>* 1.0.4
 
 ## Support
 >* Internet Explorer 8+
