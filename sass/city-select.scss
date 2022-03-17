@@ -4,7 +4,6 @@ body {
 	padding: 5% 10%;
 }
 
-
 h2 {
 	border-left: 2px solid #02aec7;
 	padding-left: 10px;
@@ -42,7 +41,6 @@ h2 {
 		color: #666;
 	}
 }
-
 
 /**
  * select城市选择
@@ -264,11 +262,12 @@ h2 {
 			transform: translateY(-2%);
 			opacity: 0;
 			visibility: hidden;
+			z-index: -1;
 		}
 	}
 	.city-pavilion {
 		box-shadow: 0 2px 5px #ddd;
-		width: 468px;
+		width: 476px;
 	}
 	.city-tabs {
 		border-bottom: 1px solid #ccc;

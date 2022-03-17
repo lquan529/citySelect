@@ -2,7 +2,7 @@
 citySelect是面向于PC端的一款基于JQuery的、整体功能都比较完善的拼音分类和集成搜索功能的城市选择插件。
 
 ## Version
->* 1.0.4
+>* 1.0.5
 
 ## Support
 >* Internet Explorer 8+
@@ -34,6 +34,7 @@ citySelect是面向于PC端的一款基于JQuery的、整体功能都比较完�
 |onInit|[function]|function () {}|插件初始化后的回调|
 |onForbid|[function]|function () {}|插件禁止后再点击的回调|
 |onTabsAfter|[function]|function (target) {}|点击tabs切换显示城市后的回调|
+|onDelVal|[function]|function (values) {}|删除城市后的回调|
 |onTabsForbid|[function]|function (target) {}|tabs禁止后再点击的回调|
 |onCallerAfter|[function]|function (target, values) {}|选择城市后的回调|
 
@@ -135,6 +136,10 @@ MulticitySelect1.setCityVal('北京市, 天津市, 上海市, 广州市, 长沙�
 [https://lquan529.github.io/citySelect/](https://lquan529.github.io/citySelect/)
 
 ## LOG
+2022.03.17-更新版本为1.0.5  
+增加删除以及清空城市回调，	
+修复在取消选择内容的焦点后，选择内容已经隐藏了，但是点击原本位置的选项还是能点击到
+
 2018.03.24-更新版本为1.0.4  
 增加返回显示和隐藏接口
 

@@ -15,7 +15,9 @@
 			</div>
 		</div>
 	</div><!-- end .city-select -->
-	
+	<br>
+	<br>
+	<div id="a">速度快了附件第三方</div>
 	<div class="info">
 		<h3>市县级数据</h3>
 		<p>whole: true</p>
@@ -210,6 +212,12 @@
 				<td>function (target, values) {}</td>
 				<td>选择城市后的回调</td>
 			</tr>
+			<tr>
+				<td>onClear</td>
+				<td>[function]</td>
+				<td>function () {}</td>
+				<td>清空城市后的回调</td>
+			</tr>
 		</table>
 	</div>
 
@@ -266,10 +274,9 @@
 		<p>unBindEvent()</p>
 	</div>
 
-
 	<script src="https://cdn.bootcss.com/jquery/1.8.1/jquery.js"></script>
 	<script type="text/javascript" src="js/citydata.min.js"></script>
-	<script type="text/javascript" src="js/citySelect-1.0.4.js"></script>
+	<script type="text/javascript" src="js/citySelect-1.0.5.js"></script>
 	<script type="text/javascript">
 	$(function() {
 
@@ -288,11 +295,22 @@
 			},
 			onCallerAfter: function (target, values) {
 				console.log(JSON.stringify(values))
+			},
+			onClear: function () {
+				console.log(this)
+			},
+			onDelVal: function (values) {
+				console.log(JSON.stringify(values))
 			}
 		});
 
 		// 单选设置城市
 		singleSelect1.setCityVal('北京市');
+
+		$('#a').on('click', function(event){
+			event.stopPropagation();
+			singleSelect1.showDrop();
+		});
 
 		// 单选
 		var singleSelect2 = $('#single-select-2').citySelect({

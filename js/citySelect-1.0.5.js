@@ -1,6 +1,6 @@
 /**
  * citySelect
- * v-1.0.4
+ * v-1.0.5
  * author：lquan
  * https://github.com/lquan529/citySelect
  * dataJson			    [Array]				json数据，是html显示的列表数据
@@ -18,7 +18,9 @@
  * onForbid             [function]          插件禁止后再点击的回调
  * onTabsAfter          [function]          点击tabs切换显示城市后的回调
  * onTabsForbid         [function]          tabs禁止后再点击的回调
+ * onDelVal             [function]          删除城市后的回调
  * onCallerAfter        [function]          选择城市后的回调
+ * onClear              [function]          清空数据后的回调
  */
 
 (function ($, window) {
@@ -61,7 +63,9 @@
         onForbid: function () {},
         onTabsAfter: function (target) {},
         onTabsForbid: function (target) {},
-        onCallerAfter: function (target, values) {}
+        onDelVal: function (values) {},
+        onCallerAfter: function (target, values) {},
+        onClear: function () {}
     };
 
     /**
@@ -696,6 +700,7 @@
 
     functionality.deletes = function (event) {
         var self = this,
+            configure = self.options,
             $target = $(event.currentTarget),
             $parent = $target.parent(),
             name = $parent[0].innerText,
@@ -726,6 +731,12 @@
             //调整文本框位置
             functionality.singleResize.call(self);
         }
+        
+        // 删除城市的回调
+        configure.onDelVal.call(self, [{
+            'name': name,
+            'id': id
+        }]);
     };
 
     /**
@@ -922,6 +933,8 @@
 
         $selector.off('click.cityselect', '.empty');
 
+        $selector.off('click.cityselect', '.del');
+
         $selector.off('keyup.cityselect', '.input-search');
 
         $selector.off('keydown.cityselect');
@@ -1014,21 +1027,27 @@
     };
 
     Cityselect.prototype.clear = function () {
+        var self = this,
+            configure = self.options;
+
         //清空选中的值
-        this.multiSelectResult = [];
-        this.multiSelectResultId = [];
-        this.provinceId = [];
-        this.values = [];
-        this.selectIndex = 0;
-        this.isfocus ? this.$selector.find('.input-search').val('').focus() : '';
+        self.multiSelectResult = [];
+        self.multiSelectResultId = [];
+        self.provinceId = [];
+        self.values = [];
+        self.selectIndex = 0;
+        self.isfocus ? self.$selector.find('.input-search').val('').focus() : '';
 
-        this.$selector.find('.caller').removeClass('active');
-        this.$selector.find('.city-count').find('i').text('0');
-        this.$selector.find('.city-info').find('span').remove();
+        self.$selector.find('.caller').removeClass('active');
+        self.$selector.find('.city-count').find('i').text('0');
+        self.$selector.find('.city-info').find('span').remove();
 
-        if (this.values.length < 1) {
-            this.$selector.find('.city-input').removeClass('hide').addClass('not-val');
+        if (self.values.length < 1) {
+            self.$selector.find('.city-input').removeClass('hide').addClass('not-val');
         }
+
+        // 清空数据的回调
+        configure.onClear.call(self);
     };
 
     Cityselect.prototype.status = function (status) {
